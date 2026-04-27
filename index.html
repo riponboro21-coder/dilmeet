@@ -1,21 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-<title>DilMeet</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Dil Match 💘</title>
+<meta name="theme-color" content="#FF3CAC">
+<meta name="description" content="Like Free. Match Smart. Match karo, ₹1 mein baat shuru karo!">
+<link rel="manifest" href="manifest.json">
 <style>
-body{font-family:Arial;text-align:center;background:#7c3aed;color:white;padding:30px}
-.box{background:white;color:black;padding:20px;border-radius:20px;max-width:350px;margin:auto}
-button{padding:12px;border:none;border-radius:10px;margin:5px}
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Sora',sans-serif;background:#0A0A0F;color:#F0EEFF;min-height:100vh;overflow-x:hidden}
+  ::-webkit-scrollbar{width:0}
+  input,textarea,button{font-family:'Sora',sans-serif}
+  input::placeholder,textarea::placeholder{color:#8B7FBB}
+  @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes toastIn{from{transform:translateX(-50%) translateY(50px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
+  @keyframes confetti{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+  .screen{display:none;min-height:100vh;animation:fadeIn 0.3s ease}
+  .screen.active{display:flex;flex-direction:column}
+  .grad{background:linear-gradient(135deg,#FF3CAC 0%,#784BA0 50%,#2B86C5 100%)}
+  .grad-text{background:linear-gradient(135deg,#FF3CAC,#784BA0,#2B86C5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .card{background:#141420;border:1px solid #2A2640;border-radius:16px}
+  .btn-primary{width:100%;padding:15px;background:linear-gradient(135deg,#FF3CAC,#784BA0);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.2s}
+  .btn-primary:disabled{background:#2A2640;color:#8B7FBB;cursor:default}
+  .btn-secondary{background:none;border:none;color:#8B7FBB;font-size:14px;cursor:pointer;padding:10px;width:100%}
+  .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1A1028;border:1px solid #FF3CAC;border-radius:20px;padding:9px 20px;color:#F0EEFF;font-size:13px;font-weight:600;z-index:9999;animation:toastIn 0.3s ease;white-space:nowrap;display:none}
+  .tab-btn{flex:1;padding:9px 4px;background:#141420;border:1px solid #2A2640;border-radius:12px;color:#8B7FBB;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s}
+  .tab-btn.active{background:linear-gradient(135deg,#FF3CAC,#784BA0);border-color:transparent;color:#fff}
+  .mood-btn{flex-shrink:0;padding:6px 12px;background:#141420;border:1px solid #2A2640;border-radius:20px;color:#8B7FBB;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s}
+  .mood-btn.active{border-color:transparent;color:#000}
+  .profile-card{position:absolute;top:0;left:0;right:0;height:440px;border-radius:24px;overflow:hidden;cursor:grab;user-select:none;box-shadow:0 20px 60px rgba(0,0,0,0.5);transition:transform 0.35s ease,opacity 0.35s ease}
+  .profile-card:active{cursor:grabbing}
+  .otp-input{width:62px;height:66px;text-align:center;background:#141420;border:2px solid #2A2640;border-radius:14px;color:#F0EEFF;font-size:26px;font-weight:800;outline:none;transition:border-color 0.2s;font-family:'Sora',sans-serif}
+  .otp-input:focus,.otp-input.filled{border-color:#FF3CAC}
+  .match-dot{position:absolute;width:8px;height:8px;border-radius:50%;animation:float 3s ease-in-out infinite}
+  .action-btn{border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:22px;transition:transform 0.15s}
+  .action-btn:active{transform:scale(0.9)}
 </style>
 </head>
 <body>
-<h1>DilMeet</h1>
-<div class="box">
-<h2>Aarohi, 24</h2>
-<p>Music • Travel • Coffee</p>
-<button>Skip</button>
-<button onclick="alert('Match Found! ₹1 Unlock')">Like ❤️</button>
-</div>
-</body>
-</html>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
