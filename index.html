@@ -191,6 +191,20 @@ Engineer 💻 | Weekend hiker 🏔 | Coffee lover ☕
 
 </div>
 </div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyC0eHHNiFmn5tih1Nou3wLEDOI7OdZ6Rc4",
+  authDomain: "dilmeet-f9aff.firebaseapp.com",
+  projectId: "dilmeet-f9aff",
+  storageBucket: "dilmeet-f9aff.firebasestorage.app",
+  messagingSenderId: "83003012729",
+  appId: "1:83003012729:web:c4630efdc600d73e43c6a8"
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
+console.log("DilMeet Firebase Connected 🔥");
+</script>
 </body>
 </html>
