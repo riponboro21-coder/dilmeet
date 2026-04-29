@@ -299,7 +299,15 @@ document.querySelectorAll(".chips button").forEach(b=>b.classList.remove("active
 this.classList.add("active");
 };
 });
+document.querySelector(".actions button:nth-child(2)").onclick = function(){
+alert("⭐ Added to Favorites");
+};
 
+document.querySelector(".super").onclick = function(){
+alert("⚡ Super Like Sent!");
+current = (current + 1) % profiles.length;
+showProfile();
+};
 </script>
 
 </body>
