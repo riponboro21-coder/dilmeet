@@ -4,24 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DilMeet Premium</title>
+
 <style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 }
+
 body{
 background:#090909;
 color:white;
 padding:15px;
 }
+
 .top{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:20px;
 }
+
 .logo{
 font-size:34px;
 font-weight:bold;
@@ -29,6 +33,7 @@ background:linear-gradient(90deg,#ff3cac,#784ba0,#2b86c5);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
+
 .icons button{
 background:#111;
 border:none;
@@ -38,12 +43,14 @@ margin-left:8px;
 border-radius:12px;
 font-size:18px;
 }
+
 .tabs,.chips{
 display:flex;
 gap:10px;
 overflow:auto;
 margin-bottom:15px;
 }
+
 .tabs button,.chips button{
 border:none;
 padding:12px 18px;
@@ -52,24 +59,29 @@ background:#141414;
 color:#bbb;
 white-space:nowrap;
 }
+
 .active{
 background:linear-gradient(90deg,#ff3cac,#784ba0,#2b86c5)!important;
 color:white!important;
 }
+
 .card{
 background:#111;
 border-radius:25px;
 overflow:hidden;
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
+box-shadow:0 10px 30px rgba(0,0,0,.5);
 }
+
 .card img{
 width:100%;
 height:430px;
 object-fit:cover;
 }
+
 .info{
 padding:18px;
 }
+
 .match{
 display:inline-block;
 background:#000;
@@ -79,6 +91,7 @@ font-weight:bold;
 color:#ffd54f;
 margin-bottom:10px;
 }
+
 .voice{
 display:inline-block;
 padding:8px 14px;
@@ -86,38 +99,45 @@ border:1px solid #444;
 border-radius:20px;
 margin-left:10px;
 }
+
 .name{
 font-size:32px;
 font-weight:bold;
 margin-top:10px;
 }
+
 .city{
 color:#ccc;
 margin-top:8px;
 }
+
 .bio{
 margin-top:10px;
 color:#ddd;
 line-height:1.5;
 }
+
 .tags{
 display:flex;
 gap:8px;
 flex-wrap:wrap;
 margin-top:15px;
 }
+
 .tags span{
 background:#222;
 padding:8px 12px;
 border-radius:14px;
 font-size:14px;
 }
+
 .actions{
 display:flex;
 justify-content:space-around;
 margin-top:20px;
 padding-bottom:20px;
 }
+
 .actions button{
 width:60px;
 height:60px;
@@ -127,18 +147,22 @@ font-size:22px;
 background:#1a1a1a;
 color:white;
 }
+
 .like{
 background:#ff2d75!important;
 }
+
 .super{
 background:#2b86c5!important;
 }
 </style>
 </head>
+
 <body>
 
 <div class="top">
 <div class="logo">💘 Dil Meet</div>
+
 <div class="icons">
 <button>☀️</button>
 <button>👤</button>
@@ -160,51 +184,104 @@ background:#2b86c5!important;
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80">
+
+<img id="profileImg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80">
 
 <div class="info">
+
 <div>
 <span class="match">🤖 91% Match</span>
 <span class="voice">🎙 Voice Intro</span>
 </div>
 
-<div class="name">Riya Kapoor, 23</div>
-<div class="city">📍 Bangalore</div>
+<div class="name" id="profileName">Loading...</div>
+<div class="city" id="profileCity">📍 Loading...</div>
 
-<div class="bio">
-Engineer 💻 | Weekend hiker 🏔 | Coffee lover ☕
+<div class="bio" id="profileBio">
+Loading bio...
 </div>
 
 <div class="tags">
 <span>#Tech</span>
-<span>#Gaming</span>
 <span>#Coffee</span>
+<span>#Travel</span>
 <span>#Movies</span>
 </div>
 
 <div class="actions">
 <button>❌</button>
 <button>⭐</button>
-<button class="like" onclick="alert('🎉 Match Found! ₹1 Unlock Chat')">❤️</button>
+<button class="like">❤️</button>
 <button class="super">⚡</button>
 </div>
 
 </div>
 </div>
+
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyC0eHHNiFmn5tih1Nou3wLEDOI7OdZ6Rc4",
-  authDomain: "dilmeet-f9aff.firebaseapp.com",
-  projectId: "dilmeet-f9aff",
-  storageBucket: "dilmeet-f9aff.firebasestorage.app",
-  messagingSenderId: "83003012729",
-  appId: "1:83003012729:web:c4630efdc600d73e43c6a8"
+apiKey: "AIzaSyC0eHHNiFmn5tih1Nou3wLEDOI7OdZ6Rc4",
+authDomain: "dilmeet-f9aff.firebaseapp.com",
+projectId: "dilmeet-f9aff",
+storageBucket: "dilmeet-f9aff.firebasestorage.app",
+messagingSenderId: "83003012729",
+appId: "1:83003012729:web:c4630efdc600d73e43c6a8"
+};
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 console.log("DilMeet Firebase Connected 🔥");
+
+const profiles = [
+{
+name:"Ananya Roy, 24",
+city:"📍 Kolkata",
+bio:"Artist 🎨 | Coffee lover ☕ | Traveller ✈️",
+img:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80"
+},
+{
+name:"Priya Sharma, 23",
+city:"📍 Delhi",
+bio:"Engineer 💻 | Fitness 💪 | Movies 🎬",
+img:"https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=800&q=80"
+},
+{
+name:"Riya Sen, 22",
+city:"📍 Bangalore",
+bio:"Singer 🎤 | Gamer 🎮 | Night owl 🌙",
+img:"https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80"
+},
+{
+name:"Sneha Das, 21",
+city:"📍 Mumbai",
+bio:"Dancer 💃 | Beach lover 🌊 | Foodie 🍕",
+img:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"
+}
+];
+
+let current = 0;
+
+function showProfile(){
+document.getElementById("profileName").innerText = profiles[current].name;
+document.getElementById("profileCity").innerText = profiles[current].city;
+document.getElementById("profileBio").innerText = profiles[current].bio;
+document.getElementById("profileImg").src = profiles[current].img;
+}
+
+showProfile();
+
+document.querySelector(".like").onclick = function(){
+alert("🎉 Match Found! ₹1 Unlock Chat");
+current = (current + 1) % profiles.length;
+showProfile();
+};
+
 </script>
+
 </body>
 </html>
