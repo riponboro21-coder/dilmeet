@@ -186,42 +186,15 @@ background:#2b86c5!important;
 <div class="card">
 
 <img id="profileImg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80">
-
-<div class="info">
-
-<div>
-<span class="match">🤖 91% Match</span>
-<span class="voice">🎙 Voice Intro</span>
-</div>
-
-<div class="name" id="profileName">Loading...</div>
-<div class="city" id="profileCity">📍 Loading...</div>
-
-<div class="bio" id="profileBio">
-Loading bio...
-</div>
-
-<div class="tags">
-<span>#Tech</span>
-<span>#Coffee</span>
-<span>#Travel</span>
-<span>#Movies</span>
-</div>
-
-<div class="actions">
-<button>❌</button>
-<button>⭐</button>
-<button class="like">❤️</button>
-<button class="super">⚡</button>
-</div>
-
-</div>
-</div>
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+import {
+getFirestore,
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyC0eHHNiFmn5tih1Nou3wLEDOI7OdZ6Rc4",
@@ -235,36 +208,20 @@ appId: "1:83003012729:web:c4630efdc600d73e43c6a8"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log("DilMeet Firebase Connected 🔥");
-
-const profiles = [
-{
-name:"Ananya Roy, 24",
-city:"📍 Kolkata",
-bio:"Artist 🎨 | Coffee lover ☕ | Traveller ✈️",
-img:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80"
-},
-{
-name:"Priya Sharma, 23",
-city:"📍 Delhi",
-bio:"Engineer 💻 | Fitness 💪 | Movies 🎬",
-img:"https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=800&q=80"
-},
-{
-name:"Riya Sen, 22",
-city:"📍 Bangalore",
-bio:"Singer 🎤 | Gamer 🎮 | Night owl 🌙",
-img:"https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80"
-},
-{
-name:"Sneha Das, 21",
-city:"📍 Mumbai",
-bio:"Dancer 💃 | Beach lover 🌊 | Foodie 🍕",
-img:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"
-}
-];
-
+let profiles = [];
 let current = 0;
+
+async function loadProfiles(){
+const querySnapshot = await getDocs(collection(db,"profiles"));
+
+querySnapshot.forEach((doc)=>{
+profiles.push(doc.data());
+});
+
+if(profiles.length > 0){
+showProfile();
+}
+}
 
 function showProfile(){
 document.getElementById("profileName").innerText = profiles[current].name;
@@ -273,15 +230,25 @@ document.getElementById("profileBio").innerText = profiles[current].bio;
 document.getElementById("profileImg").src = profiles[current].img;
 }
 
-showProfile();
+loadProfiles();
 
 document.querySelector(".like").onclick = function(){
-alert("🎉 Match Found! ₹1 Unlock Chat");
+alert("🎉 Match Found!");
 current = (current + 1) % profiles.length;
 showProfile();
 };
 
 document.querySelector(".actions button").onclick = function(){
+current = (current + 1) % profiles.length;
+showProfile();
+};
+
+document.querySelector(".actions button:nth-child(2)").onclick = function(){
+alert("⭐ Added to Favorites");
+};
+
+document.querySelector(".super").onclick = function(){
+alert("⚡ Super Like Sent!");
 current = (current + 1) % profiles.length;
 showProfile();
 };
@@ -299,16 +266,5 @@ document.querySelectorAll(".chips button").forEach(b=>b.classList.remove("active
 this.classList.add("active");
 };
 });
-document.querySelector(".actions button:nth-child(2)").onclick = function(){
-alert("⭐ Added to Favorites");
-};
 
-document.querySelector(".super").onclick = function(){
-alert("⚡ Super Like Sent!");
-current = (current + 1) % profiles.length;
-showProfile();
-};
 </script>
-
-</body>
-</html>
