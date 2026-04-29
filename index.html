@@ -281,6 +281,25 @@ current = (current + 1) % profiles.length;
 showProfile();
 };
 
+document.querySelector(".actions button").onclick = function(){
+current = (current + 1) % profiles.length;
+showProfile();
+};
+
+document.querySelectorAll(".tabs button").forEach(btn=>{
+btn.onclick = function(){
+document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+this.classList.add("active");
+};
+});
+
+document.querySelectorAll(".chips button").forEach(btn=>{
+btn.onclick = function(){
+document.querySelectorAll(".chips button").forEach(b=>b.classList.remove("active"));
+this.classList.add("active");
+};
+});
+
 </script>
 
 </body>
