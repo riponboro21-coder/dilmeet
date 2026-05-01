@@ -185,7 +185,37 @@ background:#2b86c5!important;
 
 <div class="card">
 
-<img id="profileImg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80">
+<img id="profileImg" src="">
+
+<div class="info">
+
+<div>
+<span class="match">🤖 91% Match</span>
+<span class="voice">🎙 Voice Intro</span>
+</div>
+
+<div class="name" id="profileName">Loading...</div>
+<div class="city" id="profileCity">📍 Loading...</div>
+
+<div class="bio" id="profileBio">Loading bio...</div>
+
+<div class="tags">
+<span>#Tech</span>
+<span>#Coffee</span>
+<span>#Travel</span>
+<span>#Movies</span>
+</div>
+
+<div class="actions">
+<button id="dislike">❌</button>
+<button id="fav">⭐</button>
+<button class="like">❤️</button>
+<button class="super">⚡</button>
+</div>
+
+</div>
+</div>
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
@@ -212,6 +242,7 @@ let profiles = [];
 let current = 0;
 
 async function loadProfiles(){
+
 const querySnapshot = await getDocs(collection(db,"profiles"));
 
 querySnapshot.forEach((doc)=>{
@@ -221,36 +252,41 @@ profiles.push(doc.data());
 if(profiles.length > 0){
 showProfile();
 }
+
 }
 
 function showProfile(){
+
 document.getElementById("profileName").innerText = profiles[current].name;
 document.getElementById("profileCity").innerText = profiles[current].city;
 document.getElementById("profileBio").innerText = profiles[current].bio;
 document.getElementById("profileImg").src = profiles[current].img;
+
+}
+
+function nextProfile(){
+current = (current + 1) % profiles.length;
+showProfile();
 }
 
 loadProfiles();
 
 document.querySelector(".like").onclick = function(){
 alert("🎉 Match Found!");
-current = (current + 1) % profiles.length;
-showProfile();
+nextProfile();
 };
 
-document.querySelector(".actions button").onclick = function(){
-current = (current + 1) % profiles.length;
-showProfile();
+document.getElementById("dislike").onclick = function(){
+nextProfile();
 };
 
-document.querySelector(".actions button:nth-child(2)").onclick = function(){
+document.getElementById("fav").onclick = function(){
 alert("⭐ Added to Favorites");
 };
 
 document.querySelector(".super").onclick = function(){
 alert("⚡ Super Like Sent!");
-current = (current + 1) % profiles.length;
-showProfile();
+nextProfile();
 };
 
 document.querySelectorAll(".tabs button").forEach(btn=>{
@@ -268,3 +304,6 @@ this.classList.add("active");
 });
 
 </script>
+
+</body>
+</html>
