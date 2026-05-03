@@ -107,8 +107,56 @@ current=(current+1)%profiles.length;
 showProfile();
 }
 document.addEventListener("DOMContentLoaded",()=>{
+ document.addEventListener("DOMContentLoaded", () => {
+
+  const dislike = document.getElementById("dislike");
+  const like = document.querySelector(".like");
+  const superBtn = document.querySelector(".super");
+  const fav = document.getElementById("fav");
+
+  if(dislike) {
+    dislike.onclick = nextProfile;
+  }
+
+  if(like) {
+    like.onclick = () => {
+      alert("🎉 Match!");
+      nextProfile();
+    };
+  }
+
+  if(superBtn) {
+    superBtn.onclick = () => {
+      alert("⚡ Super Like!");
+      nextProfile();
+    };
+  }
+
+  if(fav) {
+    fav.onclick = () => {
+      alert("⭐ Saved");
+    };
+  }
+
+  // Swipe
+  let startX = 0;
+  const card = document.querySelector(".card");
+
+  if(card){
+    card.addEventListener("touchstart", e=>{
+      startX = e.touches[0].clientX;
+    });
+
+    card.addEventListener("touchend", e=>{
+      let diff = startX - e.changedTouches[0].clientX;
+      if(Math.abs(diff) > 50){
+        nextProfile();
+      }
+    });
+  }
+
+});
 document.getElementById("dislike").onclick=nextProfile;
-document.querySelector(".like").onclick=()=>{alert("🎉 Match!");nextProfile();};
 document.querySelector(".super").onclick=()=>{alert("⚡ Super Like!");nextProfile();};
 document.getElementById("fav").onclick=()=>{alert("⭐ Saved");};
 let startX=0;
