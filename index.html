@@ -6,155 +6,28 @@
 <title>DilMeet Premium</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:#090909;
-color:white;
-padding:15px;
-}
-
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-}
-
-.logo{
-font-size:34px;
-font-weight:bold;
-background:linear-gradient(90deg,#ff3cac,#784ba0,#2b86c5);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.icons button{
-background:#111;
-border:none;
-color:white;
-padding:12px;
-margin-left:8px;
-border-radius:12px;
-font-size:18px;
-}
-
-.tabs,.chips{
-display:flex;
-gap:10px;
-overflow:auto;
-margin-bottom:15px;
-}
-
-.tabs button,.chips button{
-border:none;
-padding:12px 18px;
-border-radius:20px;
-background:#141414;
-color:#bbb;
-white-space:nowrap;
-}
-
-.active{
-background:linear-gradient(90deg,#ff3cac,#784ba0,#2b86c5)!important;
-color:white!important;
-}
-
-.card{
-background:#111;
-border-radius:25px;
-overflow:hidden;
-box-shadow:0 10px 30px rgba(0,0,0,.5);
-}
-
-.card img{
-width:100%;
-height:430px;
-object-fit:cover;
-}
-
-.info{
-padding:18px;
-}
-
-.match{
-display:inline-block;
-background:#000;
-padding:8px 14px;
-border-radius:20px;
-font-weight:bold;
-color:#ffd54f;
-margin-bottom:10px;
-}
-
-.voice{
-display:inline-block;
-padding:8px 14px;
-border:1px solid #444;
-border-radius:20px;
-margin-left:10px;
-}
-
-.name{
-font-size:32px;
-font-weight:bold;
-margin-top:10px;
-}
-
-.city{
-color:#ccc;
-margin-top:8px;
-}
-
-.bio{
-margin-top:10px;
-color:#ddd;
-line-height:1.5;
-}
-
-.tags{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-top:15px;
-}
-
-.tags span{
-background:#222;
-padding:8px 12px;
-border-radius:14px;
-font-size:14px;
-}
-
-.actions{
-display:flex;
-justify-content:space-around;
-margin-top:20px;
-padding-bottom:20px;
-}
-
-.actions button{
-width:60px;
-height:60px;
-border:none;
-border-radius:50%;
-font-size:22px;
-background:#1a1a1a;
-color:white;
-}
-
-.like{
-background:#ff2d75!important;
-}
-
-.super{
-background:#2b86c5!important;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:#090909;color:white;padding:15px;}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.logo{font-size:34px;font-weight:bold;background:linear-gradient(90deg,#ff3cac,#784ba0,#2b86c5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.icons button{background:#111;border:none;color:white;padding:12px;margin-left:8px;border-radius:12px;font-size:18px;}
+.tabs,.chips{display:flex;gap:10px;overflow:auto;margin-bottom:15px;}
+.tabs button,.chips button{border:none;padding:12px 18px;border-radius:20px;background:#141414;color:#bbb;}
+.active{background:linear-gradient(90deg,#ff3cac,#784ba0,#2b86c5)!important;color:white!important;}
+.card{background:#111;border-radius:25px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.5);}
+.card img{width:100%;height:430px;object-fit:cover;}
+.info{padding:18px;}
+.match{background:#000;padding:8px 14px;border-radius:20px;color:#ffd54f;margin-bottom:10px;display:inline-block;}
+.voice{padding:8px 14px;border:1px solid #444;border-radius:20px;margin-left:10px;}
+.name{font-size:32px;font-weight:bold;margin-top:10px;}
+.city{color:#ccc;margin-top:8px;}
+.bio{margin-top:10px;color:#ddd;}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px;}
+.tags span{background:#222;padding:8px 12px;border-radius:14px;}
+.actions{display:flex;justify-content:space-around;margin-top:20px;padding-bottom:20px;}
+.actions button{width:60px;height:60px;border:none;border-radius:50%;font-size:22px;background:#1a1a1a;color:white;}
+.like{background:#ff2d75!important;}
+.super{background:#2b86c5!important;}
 </style>
 </head>
 
@@ -162,7 +35,6 @@ background:#2b86c5!important;
 
 <div class="top">
 <div class="logo">💘 Dil Meet</div>
-
 <div class="icons">
 <button>☀️</button>
 <button>👤</button>
@@ -184,19 +56,41 @@ background:#2b86c5!important;
 </div>
 
 <div class="card">
-
 <img id="profileImg" src="">
 
+<div class="info">
+<div>
+<span class="match">🤖 91% Match</span>
+<span class="voice">🎙 Voice Intro</span>
+</div>
+
+<div class="name" id="profileName">Loading...</div>
+<div class="city" id="profileCity">📍 Loading...</div>
+<div class="bio" id="profileBio">Loading...</div>
+
+<div class="tags">
+<span>#Tech</span>
+<span>#Coffee</span>
+<span>#Travel</span>
+<span>#Movies</span>
+</div>
+
+<div class="actions">
+<button id="dislike">❌</button>
+<button id="fav">⭐</button>
+<button class="like">❤️</button>
+<button class="super">⚡</button>
+</div>
+
+</div>
+</div>
+
+<!-- ✅ SCRIPT ALWAYS AT BOTTOM -->
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
-// 🔥 Firebase config (same rehne do)
 const firebaseConfig = {
   apiKey: "AIzaSyC0eHHNiFmn5tih1Nou3wLEDOI7OdZ6Rc4",
   authDomain: "dilmeet-f9aff.firebaseapp.com",
@@ -212,24 +106,13 @@ const db = getFirestore(app);
 let profiles = [];
 let current = 0;
 
-// 📥 Load profiles from Firestore
 async function loadProfiles(){
   const querySnapshot = await getDocs(collection(db,"profiles"));
-
   profiles = [];
-
-  querySnapshot.forEach((doc)=>{
-    profiles.push(doc.data());
-  });
-
-  if(profiles.length > 0){
-    showProfile();
-  } else {
-    console.log("No profiles found");
-  }
+  querySnapshot.forEach((doc)=> profiles.push(doc.data()));
+  if(profiles.length > 0) showProfile();
 }
 
-// 👤 Show profile
 function showProfile(){
   document.getElementById("profileName").innerText = profiles[current].name;
   document.getElementById("profileCity").innerText = profiles[current].city;
@@ -237,48 +120,24 @@ function showProfile(){
   document.getElementById("profileImg").src = profiles[current].img;
 }
 
-// 🔁 Next profile
 function nextProfile(){
   current = (current + 1) % profiles.length;
   showProfile();
 }
 
-// ❤️ Buttons
-document.querySelector(".like").onclick = function(){
-  alert("🎉 Match Found!");
-  nextProfile();
-};
+document.querySelector(".like").onclick = ()=>{ alert("🎉 Match!"); nextProfile(); };
+document.querySelector(".super").onclick = ()=>{ alert("⚡ Super Like!"); nextProfile(); };
+document.getElementById("dislike").onclick = nextProfile;
+document.getElementById("fav").onclick = ()=> alert("⭐ Saved");
 
-document.querySelector(".super").onclick = function(){
-  alert("⚡ Super Like!");
-  nextProfile();
-};
-
-document.querySelector("#dislike")?.addEventListener("click", nextProfile);
-
-// ⭐ Favourite
-document.querySelector("#fav")?.addEventListener("click", ()=>{
-  alert("⭐ Added to Favorites");
+let startX=0;
+const card=document.querySelector(".card");
+card.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+card.addEventListener("touchend",e=>{
+  let diff=startX-e.changedTouches[0].clientX;
+  if(Math.abs(diff)>50) nextProfile();
 });
 
-// 👉 Swipe system
-let startX = 0;
-const card = document.querySelector(".card");
-
-card.addEventListener("touchstart",(e)=>{
-  startX = e.touches[0].clientX;
-});
-
-card.addEventListener("touchend",(e)=>{
-  let endX = e.changedTouches[0].clientX;
-  let diff = startX - endX;
-
-  if(diff > 50 || diff < -50){
-    nextProfile();
-  }
-});
-
-// 🎯 Load start
 loadProfiles();
 
 </script>
