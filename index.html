@@ -84,8 +84,6 @@ body{background:#090909;color:white;padding:15px;}
 
 </div>
 </div>
-
-<!-- ✅ SCRIPT ALWAYS AT BOTTOM -->
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
@@ -106,89 +104,68 @@ const db = getFirestore(app);
 let profiles = [];
 let current = 0;
 
+window.onload = async () => {
+  await loadProfiles();
+};
+
 async function loadProfiles(){
   const querySnapshot = await getDocs(collection(db,"profiles"));
   profiles = [];
-  querySnapshot.forEach((doc)=> profiles.push(doc.data()));
+  querySnapshot.forEach(doc => profiles.push(doc.data()));
+
   if(profiles.length > 0){
-  showProfile();
-}
-}
-
-// 👤 Show profile
-function showProfile(){
-  document.getElementById("profileName").innerText = profiles[current].name;
-  document.getElementById("profileCity").innerText = profiles[current].city;
-  document.getElementById("profileBio").innerText = profiles[current].bio;
-  document.getElementById("profileImg").src = profiles[current].img;
-}
-
-// 🔁 Next profile
-function nextProfile(){
-  current = (current + 1) % profiles.length;
-  showProfile();
-}
-
-// ❤️ Buttons
-document.querySelector(".like").onclick = ()=>{
-  alert("🎉 Match!");
-  nextProfile();
-};
-
-document.querySelector(".super").onclick = ()=>{
-  alert("⚡ Super Like!");
-  nextProfile();
-};
-
-document.getElementById("dislike").onclick = nextProfile;
-
-document.getElementById("fav").onclick = ()=>{
-  alert("⭐ Saved");
-};
-
-// 👉 Swipe
-let startX = 0;
-const card = document.querySelector(".card");
-
-card.addEventListener("touchstart",(e)=>{
-  startX = e.touches[0].clientX;
-});
-
-card.addEventListener("touchend",(e)=>{
-  let diff = startX - e.changedTouches[0].clientX;
-  if(Math.abs(diff) > 50){
-    nextProfile();
+    showProfile();
   }
-});
-
-// 🚀 Start
-loadProfiles();
-  if(profiles.length > 0) showProfile();
 }
 
 function showProfile(){
-  document.getElementById("profileName").innerText = profiles[current].name;
-  document.getElementById("profileCity").innerText = profiles[current].city;
-  document.getElementById("profileBio").innerText = profiles[current].bio;
-  document.getElementById("profileImg").src = profiles[current].img;
+  document.getElementById("profileName").innerText = profiles[current]?.name || "No Name";
+  document.getElementById("profileCity").innerText = profiles[current]?.city || "No City";
+  document.getElementById("profileBio").innerText = profiles[current]?.bio || "No Bio";
+  document.getElementById("profileImg").src = profiles[current]?.img || "";
 }
 
 function nextProfile(){
+  if(profiles.length === 0) return;
   current = (current + 1) % profiles.length;
   showProfile();
 }
 
-document.querySelector(".like").onclick = ()=>{ alert("🎉 Match!"); nextProfile(); };
-document.querySelector(".super").onclick = ()=>{ alert("⚡ Super Like!"); nextProfile(); };
-document.getElementById("dislike").onclick = nextProfile;
-document.getElementById("fav").onclick = ()=> alert("⭐ Saved");
+// buttons
+document.addEventListener("DOMContentLoaded", ()=>{
+  document.getElementById("dislike").onclick = nextProfile;
 
-let startX=0;
-const card=document.querySelector(".card");
-card.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-card.addEventListener("touchend",e=>{
-  let diff=startX-e.changedTouches[0].clientX;
-  if(Math.abs(diff)>50) nextProfile();
+  document.querySelector(".like").onclick = ()=>{
+    alert("🎉 Match!");
+    nextProfile();
+  };
+
+  document.querySelector(".super").onclick = ()=>{
+    alert("⚡ Super Like!");
+    nextProfile();
+  };
+
+  document.getElementById("fav").onclick = ()=>{
+    alert("⭐ Saved");
+  };
+
+  // swipe
+  let startX = 0;
+  const card = document.querySelector(".card");
+
+  card.addEventListener("touchstart", e=>{
+    startX = e.touches[0].clientX;
+  });
+
+  card.addEventListener("touchend", e=>{
+    let diff = startX - e.changedTouches[0].clientX;
+    if(Math.abs(diff) > 50){
+      nextProfile();
+    }
+  });
 });
 
-loadProfiles();
+</script>
+
+</body>
+</html>
