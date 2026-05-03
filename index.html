@@ -106,7 +106,54 @@ if(profiles.length===0)return;
 current=(current+1)%profiles.length;
 showProfile();
 }
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded",()=>{document.addEventListener("DOMContentLoaded", ()=>{
+
+  // ⭐ EXISTING BUTTON CODE (already hai)
+
+  document.getElementById("dislike").onclick = nextProfile;
+
+  document.querySelector(".like").onclick = ()=>{
+    alert("🎉 Match!");
+    nextProfile();
+  };
+
+  document.querySelector(".super").onclick = ()=>{
+    alert("⚡ Super Like!");
+    nextProfile();
+  };
+
+  document.getElementById("fav").onclick = ()=>{
+    alert("⭐ Saved");
+  };
+
+  // 🔥 👉 YAHAN NEW CODE PASTE KARO
+
+  // TOP ICONS
+  document.querySelector(".icons button:nth-child(1)").onclick = () => {
+    alert("🌙 Theme Coming Soon");
+  };
+
+  document.querySelector(".icons button:nth-child(2)").onclick = () => {
+    alert("👤 Profile Coming Soon");
+  };
+
+  // TABS
+  document.querySelectorAll(".tabs button").forEach(btn=>{
+    btn.onclick = function(){
+      document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+      this.classList.add("active");
+    };
+  });
+
+  // CHIPS
+  document.querySelectorAll(".chips button").forEach(btn=>{
+    btn.onclick = function(){
+      document.querySelectorAll(".chips button").forEach(b=>b.classList.remove("active"));
+      this.classList.add("active");
+    };
+  });
+
+});
  document.addEventListener("DOMContentLoaded", () => {
 
   const dislike = document.getElementById("dislike");
