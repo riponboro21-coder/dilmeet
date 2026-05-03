@@ -110,6 +110,9 @@ document.addEventListener("DOMContentLoaded",()=>{
  document.addEventListener("DOMContentLoaded", () => {
 
   const dislike = document.getElementById("dislike");
+   document.addEventListener("DOMContentLoaded", () => {
+
+  const dislike = document.getElementById("dislike");
   const like = document.querySelector(".like");
   const superBtn = document.querySelector(".super");
   const fav = document.getElementById("fav");
@@ -156,17 +159,5 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 
 });
-document.getElementById("dislike").onclick=nextProfile;
-document.querySelector(".super").onclick=()=>{alert("⚡ Super Like!");nextProfile();};
-document.getElementById("fav").onclick=()=>{alert("⭐ Saved");};
-let startX=0;
-const card=document.querySelector(".card");
-card.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-card.addEventListener("touchend",e=>{
-let diff=startX-e.changedTouches[0].clientX;
-if(Math.abs(diff)>50){nextProfile();}
-});
-});
-</script>
 </body>
 </html>
