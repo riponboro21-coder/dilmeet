@@ -110,6 +110,59 @@ async function loadProfiles(){
   const querySnapshot = await getDocs(collection(db,"profiles"));
   profiles = [];
   querySnapshot.forEach((doc)=> profiles.push(doc.data()));
+  if(profiles.length > 0){
+  showProfile();
+}
+}
+
+// 👤 Show profile
+function showProfile(){
+  document.getElementById("profileName").innerText = profiles[current].name;
+  document.getElementById("profileCity").innerText = profiles[current].city;
+  document.getElementById("profileBio").innerText = profiles[current].bio;
+  document.getElementById("profileImg").src = profiles[current].img;
+}
+
+// 🔁 Next profile
+function nextProfile(){
+  current = (current + 1) % profiles.length;
+  showProfile();
+}
+
+// ❤️ Buttons
+document.querySelector(".like").onclick = ()=>{
+  alert("🎉 Match!");
+  nextProfile();
+};
+
+document.querySelector(".super").onclick = ()=>{
+  alert("⚡ Super Like!");
+  nextProfile();
+};
+
+document.getElementById("dislike").onclick = nextProfile;
+
+document.getElementById("fav").onclick = ()=>{
+  alert("⭐ Saved");
+};
+
+// 👉 Swipe
+let startX = 0;
+const card = document.querySelector(".card");
+
+card.addEventListener("touchstart",(e)=>{
+  startX = e.touches[0].clientX;
+});
+
+card.addEventListener("touchend",(e)=>{
+  let diff = startX - e.changedTouches[0].clientX;
+  if(Math.abs(diff) > 50){
+    nextProfile();
+  }
+});
+
+// 🚀 Start
+loadProfiles();
   if(profiles.length > 0) showProfile();
 }
 
