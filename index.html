@@ -425,7 +425,6 @@ this.classList.add("active");
 const card = document.querySelector(".card");
 
 let startX = 0;
-let currentX = 0;
 
 card.addEventListener("touchstart", function(e){
 
@@ -433,30 +432,23 @@ startX = e.touches[0].clientX;
 
 });
 
-card.addEventListener("touchmove", function(e){
+card.addEventListener("touchend", function(e){
 
-currentX = e.touches[0].clientX;
+let endX = e.changedTouches[0].clientX;
 
-});
-
-card.addEventListener("touchend", function(){
-
-let diffX = startX - currentX;
-
-if(diffX > 50){
+if(startX - endX > 50){
 
 nextProfile();
 
 }
 
-if(diffX < -50){
+if(endX - startX > 50){
 
 nextProfile();
 
 }
 
 });
-console.log("Swipe Loaded");
 </script>
 
 </body>
