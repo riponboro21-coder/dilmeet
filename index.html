@@ -279,50 +279,34 @@ Loading...
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 
 import {
 getFirestore,
 collection,
 getDocs
-}
-from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
 const firebaseConfig = {
 
 apiKey: "AIzaSyC0eHHNiFmn5tih1Nou3wLEDOI7OdZ6Rc4",
-
 authDomain: "dilmeet-f9aff.firebaseapp.com",
-
 projectId: "dilmeet-f9aff",
-
-storageBucket: "dilmeet-f9aff.firebasestorage.app",
-
+storageBucket: "dilmeet-f9aff.appspot.com",
 messagingSenderId: "83003012729",
-
 appId: "1:83003012729:web:c4630efdc600d73e43c6a8"
 
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
 let profiles = [];
-
 let current = 0;
-
-window.onload = async ()=>{
-
-await loadProfiles();
-
-};
 
 async function loadProfiles(){
 
-const querySnapshot =
-await getDocs(collection(db,"profiles"));
+const querySnapshot = await getDocs(collection(db,"profiles"));
 
 profiles = [];
 
@@ -343,37 +327,32 @@ showProfile();
 function showProfile(){
 
 document.getElementById("profileName").innerText =
-profiles[current]?.name || "No Name";
+profiles[current].name;
 
 document.getElementById("profileCity").innerText =
-profiles[current]?.city || "No City";
+profiles[current].city;
 
 document.getElementById("profileBio").innerText =
-profiles[current]?.bio || "No Bio";
+profiles[current].bio;
 
 document.getElementById("profileImg").src =
-profiles[current]?.img || "";
+profiles[current].img;
 
 }
 
 function nextProfile(){
 
-if(profiles.length === 0) return;
-
-current =
-(current + 1) % profiles.length;
+current = (current + 1) % profiles.length;
 
 showProfile();
 
 }
 
-document.getElementById("dislike").onclick =
-nextProfile;
+document.getElementById("dislike").onclick = nextProfile;
 
 document.querySelector(".like").onclick = ()=>{
 
-alert("🎉 Match!");
-
+alert("🎉 Match Found!");
 nextProfile();
 
 };
@@ -381,7 +360,6 @@ nextProfile();
 document.querySelector(".super").onclick = ()=>{
 
 alert("⚡ Super Like!");
-
 nextProfile();
 
 };
@@ -392,63 +370,30 @@ alert("⭐ Saved");
 
 };
 
-document.querySelectorAll(".tabs button")
-.forEach(btn=>{
-
-btn.onclick = function(){
-
-document.querySelectorAll(".tabs button")
-.forEach(b=>b.classList.remove("active"));
-
-this.classList.add("active");
-
-};
-
-});
-
-document.querySelectorAll(".chips button")
-.forEach(btn=>{
-
-btn.onclick = function(){
-
-document.querySelectorAll(".chips button")
-.forEach(b=>b.classList.remove("active"));
-
-this.classList.add("active");
-
-};
-
-});
-
-// Swipe
-
 const card = document.querySelector(".card");
 
 let startX = 0;
 
-card.addEventListener("touchstart", function(e){
+card.addEventListener("touchstart", (e)=>{
 
 startX = e.touches[0].clientX;
 
 });
 
-card.addEventListener("touchend", function(e){
+card.addEventListener("touchend", (e)=>{
 
 let endX = e.changedTouches[0].clientX;
 
-if(startX - endX > 50){
-
-nextProfile();
-
-}
-
-if(endX - startX > 50){
+if(Math.abs(startX - endX) > 50){
 
 nextProfile();
 
 }
 
 });
+
+loadProfiles();
+
 </script>
 
 </body>
