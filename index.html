@@ -421,31 +421,31 @@ this.classList.add("active");
 
 // Swipe
 
+window.addEventListener("load",()=>{
+
 let startX = 0;
 
-const card =
-document.querySelector(".card");
+const card = document.querySelector(".card");
 
 card.addEventListener("touchstart",(e)=>{
 
-startX =
-e.touches[0].clientX;
+startX = e.touches[0].clientX;
 
 });
 
 card.addEventListener("touchend",(e)=>{
 
-let endX =
-e.changedTouches[0].clientX;
+let endX = e.changedTouches[0].clientX;
 
-let diff =
-startX - endX;
+let diff = startX - endX;
 
-if(diff > 50 || diff < -50){
+if(Math.abs(diff) > 50){
 
 nextProfile();
 
 }
+
+});
 
 });
 
