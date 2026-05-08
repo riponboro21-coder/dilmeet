@@ -1,51 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DilMeet</title>
+
+<title>DilMeet Premium</title>
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
-background:black;
+background:#090909;
 color:white;
-font-family:Arial;
-padding:20px;
+padding:15px;
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.logo{
+font-size:34px;
+font-weight:bold;
+background:linear-gradient(90deg,#ff3cac,#784ba0,#2b86c5);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.icons button{
+background:#111;
+border:none;
+color:white;
+padding:12px;
+margin-left:8px;
+border-radius:12px;
+font-size:18px;
+}
+
+.tabs,
+.chips{
+display:flex;
+gap:10px;
+overflow:auto;
+margin-bottom:15px;
+}
+
+.tabs button,
+.chips button{
+border:none;
+padding:12px 18px;
+border-radius:20px;
+background:#141414;
+color:#bbb;
+}
+
+.active{
+background:linear-gradient(90deg,#ff3cac,#784ba0,#2b86c5)!important;
+color:white!important;
 }
 
 .card{
 background:#111;
-border-radius:20px;
+border-radius:25px;
 overflow:hidden;
-max-width:350px;
-margin:auto;
+box-shadow:0 10px 30px rgba(0,0,0,.5);
 }
 
-img{
+.card img{
 width:100%;
-height:400px;
+height:430px;
 object-fit:cover;
 }
 
 .info{
-padding:15px;
+padding:18px;
 }
 
-button{
-padding:12px;
+.match{
+background:#000;
+padding:8px 14px;
+border-radius:20px;
+color:#ffd54f;
+margin-bottom:10px;
+display:inline-block;
+}
+
+.voice{
+padding:8px 14px;
+border:1px solid #444;
+border-radius:20px;
+margin-left:10px;
+}
+
+.name{
+font-size:32px;
+font-weight:bold;
+margin-top:10px;
+}
+
+.city{
+color:#ccc;
+margin-top:8px;
+}
+
+.bio{
+margin-top:10px;
+color:#ddd;
+}
+
+.tags{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:15px;
+}
+
+.tags span{
+background:#222;
+padding:8px 12px;
+border-radius:14px;
+}
+
+.actions{
+display:flex;
+justify-content:space-around;
+margin-top:20px;
+padding-bottom:20px;
+}
+
+.actions button{
+width:60px;
+height:60px;
 border:none;
-border-radius:12px;
-margin:5px;
-font-size:20px;
+border-radius:50%;
+font-size:22px;
+background:#1a1a1a;
+color:white;
 }
 
 .like{
-background:pink;
+background:#ff2d75!important;
 }
 
 .super{
-background:deepskyblue;
+background:#2b86c5!important;
 }
 
 </style>
@@ -53,25 +161,117 @@ background:deepskyblue;
 
 <body>
 
+<div class="top">
+
+<div class="logo">
+💘 Dil Meet
+</div>
+
+<div class="icons">
+<button>☀️</button>
+<button>👤</button>
+</div>
+
+</div>
+
+<div class="tabs">
+
+<button class="active">
+🔍 Discover
+</button>
+
+<button>
+💕 Matches
+</button>
+
+<button>
+📍 Nearby
+</button>
+
+</div>
+
+<div class="chips">
+
+<button class="active">
+✨ All
+</button>
+
+<button>
+🎉 Fun
+</button>
+
+<button>
+💼 Serious
+</button>
+
+<button>
+🤝 Friendship
+</button>
+
+<button>
+😊 Casual
+</button>
+
+</div>
+
 <div class="card">
 
 <img id="profileImg" src="">
 
 <div class="info">
 
-<h1 id="profileName">Loading...</h1>
+<div>
 
-<h3 id="profileCity">Loading...</h3>
+<span class="match">
+🤖 91% Match
+</span>
 
-<p id="profileBio">Loading...</p>
+<span class="voice">
+🎙 Voice Intro
+</span>
 
-<button id="dislike">❌</button>
+</div>
 
-<button id="fav">⭐</button>
+<div class="name" id="profileName">
+Loading...
+</div>
 
-<button class="like">❤️</button>
+<div class="city" id="profileCity">
+📍 Loading...
+</div>
 
-<button class="super">⚡</button>
+<div class="bio" id="profileBio">
+Loading...
+</div>
+
+<div class="tags">
+
+<span>#Tech</span>
+<span>#Coffee</span>
+<span>#Travel</span>
+<span>#Movies</span>
+
+</div>
+
+<div class="actions">
+
+<button id="dislike">
+❌
+</button>
+
+<button id="fav">
+⭐
+</button>
+
+<button class="like">
+❤️
+</button>
+
+<button class="super">
+⚡
+</button>
+
+</div>
 
 </div>
 </div>
@@ -112,6 +312,12 @@ let profiles = [];
 
 let current = 0;
 
+window.onload = async ()=>{
+
+await loadProfiles();
+
+};
+
 async function loadProfiles(){
 
 const querySnapshot =
@@ -120,11 +326,15 @@ await getDocs(collection(db,"profiles"));
 profiles = [];
 
 querySnapshot.forEach((doc)=>{
+
 profiles.push(doc.data());
+
 });
 
 if(profiles.length > 0){
+
 showProfile();
+
 }
 
 }
@@ -132,20 +342,22 @@ showProfile();
 function showProfile(){
 
 document.getElementById("profileName").innerText =
-profiles[current].name;
+profiles[current]?.name || "No Name";
 
 document.getElementById("profileCity").innerText =
-profiles[current].city;
+profiles[current]?.city || "No City";
 
 document.getElementById("profileBio").innerText =
-profiles[current].bio;
+profiles[current]?.bio || "No Bio";
 
 document.getElementById("profileImg").src =
-profiles[current].img;
+profiles[current]?.img || "";
 
 }
 
 function nextProfile(){
+
+if(profiles.length === 0) return;
 
 current =
 (current + 1) % profiles.length;
@@ -159,7 +371,7 @@ nextProfile;
 
 document.querySelector(".like").onclick = ()=>{
 
-alert("🎉 Match Found!");
+alert("🎉 Match!");
 
 nextProfile();
 
@@ -179,7 +391,63 @@ alert("⭐ Saved");
 
 };
 
-loadProfiles();
+document.querySelectorAll(".tabs button")
+.forEach(btn=>{
+
+btn.onclick = function(){
+
+document.querySelectorAll(".tabs button")
+.forEach(b=>b.classList.remove("active"));
+
+this.classList.add("active");
+
+};
+
+});
+
+document.querySelectorAll(".chips button")
+.forEach(btn=>{
+
+btn.onclick = function(){
+
+document.querySelectorAll(".chips button")
+.forEach(b=>b.classList.remove("active"));
+
+this.classList.add("active");
+
+};
+
+});
+
+// Swipe
+
+let startX = 0;
+
+const card =
+document.querySelector(".card");
+
+card.addEventListener("touchstart",(e)=>{
+
+startX =
+e.touches[0].clientX;
+
+});
+
+card.addEventListener("touchend",(e)=>{
+
+let endX =
+e.changedTouches[0].clientX;
+
+let diff =
+startX - endX;
+
+if(diff > 50 || diff < -50){
+
+nextProfile();
+
+}
+
+});
 
 </script>
 
