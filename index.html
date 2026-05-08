@@ -421,34 +421,40 @@ this.classList.add("active");
 
 // Swipe
 
-window.addEventListener("load",()=>{
-
 let startX = 0;
+let endX = 0;
 
 const card = document.querySelector(".card");
 
-card.addEventListener("touchstart",(e)=>{
+card.addEventListener("touchstart", function(e){
 
-startX = e.touches[0].clientX;
+startX = e.changedTouches[0].screenX;
 
 });
 
-card.addEventListener("touchend",(e)=>{
+card.addEventListener("touchend", function(e){
 
-let endX = e.changedTouches[0].clientX;
+endX = e.changedTouches[0].screenX;
 
-let diff = startX - endX;
+handleSwipe();
 
-if(Math.abs(diff) > 50){
+});
+
+function handleSwipe(){
+
+if(startX - endX > 50){
 
 nextProfile();
 
 }
 
-});
+if(endX - startX > 50){
 
-});
+nextProfile();
 
+}
+
+}
 </script>
 
 </body>
