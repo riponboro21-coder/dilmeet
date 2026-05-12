@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>DilMeet Premium</title>
+
+<script src="https://www.gstatic.com/firebasejs/12.12.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore-compat.js"></script>
 
 <style>
 
@@ -73,7 +77,6 @@ background:#111;
 border-radius:25px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,.5);
-touch-action:pan-y;
 }
 
 .card img{
@@ -146,6 +149,7 @@ border-radius:50%;
 font-size:22px;
 background:#1a1a1a;
 color:white;
+cursor:pointer;
 }
 
 .like{
@@ -175,35 +179,29 @@ background:#2b86c5!important;
 </div>
 
 <div class="tabs">
-
 <button class="active">🔍 Discover</button>
 <button>💕 Matches</button>
 <button>📍 Nearby</button>
-
 </div>
 
 <div class="chips">
-
 <button class="active">✨ All</button>
 <button>🎉 Fun</button>
 <button>💼 Serious</button>
 <button>🤝 Friendship</button>
 <button>😊 Casual</button>
-
 </div>
 
-<div class="card">
+<div class="card" id="card">
 
-<img id="profileImg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop">
+<img id="profileImg"
+src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop">
 
 <div class="info">
 
 <div>
-
 <span class="match">🤖 91% Match</span>
-
 <span class="voice">🎙 Voice Intro</span>
-
 </div>
 
 <div class="name" id="profileName">
@@ -219,12 +217,10 @@ Loading...
 </div>
 
 <div class="tags">
-
 <span>#Tech</span>
 <span>#Coffee</span>
 <span>#Travel</span>
 <span>#Movies</span>
-
 </div>
 
 <div class="actions">
@@ -240,18 +236,9 @@ Loading...
 </div>
 
 </div>
-
 </div>
 
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-getDocs
-} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+<script>
 
 const firebaseConfig = {
 
@@ -269,9 +256,9 @@ appId: "1:83003012729:web:c4630efdc600d73e43c6a8"
 
 };
 
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+const db = firebase.firestore();
 
 let profiles = [];
 let current = 0;
@@ -280,12 +267,12 @@ async function loadProfiles(){
 
 try{
 
-const querySnapshot =
-await getDocs(collection(db,"profiles"));
+const snapshot =
+await db.collection("profiles").get();
 
 profiles = [];
 
-querySnapshot.forEach((doc)=>{
+snapshot.forEach((doc)=>{
 
 profiles.push(doc.data());
 
@@ -306,6 +293,8 @@ document.getElementById("profileName").innerText =
 
 console.log(error);
 
+alert("Firebase Error");
+
 }
 
 }
@@ -315,16 +304,16 @@ function showProfile(){
 if(profiles.length === 0) return;
 
 document.getElementById("profileName").innerText =
-profiles[current].name;
+profiles[current].name || "No Name";
 
 document.getElementById("profileCity").innerText =
-profiles[current].city;
+profiles[current].city || "No City";
 
 document.getElementById("profileBio").innerText =
-profiles[current].bio;
+profiles[current].bio || "No Bio";
 
 document.getElementById("profileImg").src =
-profiles[current].img;
+profiles[current].img || "";
 
 }
 
@@ -332,41 +321,47 @@ function nextProfile(){
 
 if(profiles.length === 0) return;
 
-current = (current + 1) % profiles.length;
+current++;
+
+if(current >= profiles.length){
+
+current = 0;
+
+}
 
 showProfile();
 
 }
 
-document.getElementById("dislike").onclick = ()=>{
+document.getElementById("dislike")
+.addEventListener("click",nextProfile);
 
-nextProfile();
-
-};
-
-document.getElementById("like").onclick = ()=>{
+document.getElementById("like")
+.addEventListener("click",()=>{
 
 alert("🎉 Match Found!");
 
 nextProfile();
 
-};
+});
 
-document.getElementById("super").onclick = ()=>{
+document.getElementById("super")
+.addEventListener("click",()=>{
 
 alert("⚡ Super Like!");
 
 nextProfile();
 
-};
+});
 
-document.getElementById("fav").onclick = ()=>{
+document.getElementById("fav")
+.addEventListener("click",()=>{
 
 alert("⭐ Saved");
 
-};
+});
 
-const card = document.querySelector(".card");
+const card = document.getElementById("card");
 
 let startX = 0;
 
