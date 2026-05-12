@@ -290,15 +290,21 @@ getDocs
 const firebaseConfig = {
 
 apiKey: "AIzaSyC0eHHNiFmn5tih1Nou3wLEDOI7OdZ6Rc4",
+
 authDomain: "dilmeet-f9aff.firebaseapp.com",
+
 projectId: "dilmeet-f9aff",
-storageBucket: "dilmeet-f9aff.appspot.com",
+
+storageBucket: "dilmeet-f9aff.firebasestorage.app",
+
 messagingSenderId: "83003012729",
+
 appId: "1:83003012729:web:c4630efdc600d73e43c6a8"
 
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 
 let profiles = [];
@@ -306,7 +312,10 @@ let current = 0;
 
 async function loadProfiles(){
 
-const querySnapshot = await getDocs(collection(db,"profiles"));
+try{
+
+const querySnapshot =
+await getDocs(collection(db,"profiles"));
 
 profiles = [];
 
@@ -320,11 +329,24 @@ if(profiles.length > 0){
 
 showProfile();
 
+}else{
+
+document.getElementById("profileName").innerText =
+"No Profiles";
+
+}
+
+}catch(error){
+
+console.log(error);
+
 }
 
 }
 
 function showProfile(){
+
+if(profiles.length === 0) return;
 
 document.getElementById("profileName").innerText =
 profiles[current].name;
@@ -342,17 +364,26 @@ profiles[current].img;
 
 function nextProfile(){
 
+if(profiles.length === 0) return;
+
 current = (current + 1) % profiles.length;
 
 showProfile();
 
 }
 
-document.getElementById("dislike").onclick = nextProfile;
+window.addEventListener("load",()=>{
+
+document.getElementById("dislike").onclick = ()=>{
+
+nextProfile();
+
+};
 
 document.querySelector(".like").onclick = ()=>{
 
 alert("🎉 Match Found!");
+
 nextProfile();
 
 };
@@ -360,6 +391,7 @@ nextProfile();
 document.querySelector(".super").onclick = ()=>{
 
 alert("⚡ Super Like!");
+
 nextProfile();
 
 };
@@ -374,13 +406,13 @@ const card = document.querySelector(".card");
 
 let startX = 0;
 
-card.addEventListener("touchstart", (e)=>{
+card.addEventListener("touchstart",(e)=>{
 
 startX = e.touches[0].clientX;
 
 });
 
-card.addEventListener("touchend", (e)=>{
+card.addEventListener("touchend",(e)=>{
 
 let endX = e.changedTouches[0].clientX;
 
@@ -389,6 +421,8 @@ if(Math.abs(startX - endX) > 50){
 nextProfile();
 
 }
+
+});
 
 });
 
