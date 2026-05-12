@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,7 +73,7 @@ background:#111;
 border-radius:25px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,.5);
-touch-action: pan-y;
+touch-action:pan-y;
 }
 
 .card img{
@@ -92,8 +91,8 @@ background:#000;
 padding:8px 14px;
 border-radius:20px;
 color:#ffd54f;
-margin-bottom:10px;
 display:inline-block;
+margin-bottom:10px;
 }
 
 .voice{
@@ -177,59 +176,33 @@ background:#2b86c5!important;
 
 <div class="tabs">
 
-<button class="active">
-🔍 Discover
-</button>
-
-<button>
-💕 Matches
-</button>
-
-<button>
-📍 Nearby
-</button>
+<button class="active">🔍 Discover</button>
+<button>💕 Matches</button>
+<button>📍 Nearby</button>
 
 </div>
 
 <div class="chips">
 
-<button class="active">
-✨ All
-</button>
-
-<button>
-🎉 Fun
-</button>
-
-<button>
-💼 Serious
-</button>
-
-<button>
-🤝 Friendship
-</button>
-
-<button>
-😊 Casual
-</button>
+<button class="active">✨ All</button>
+<button>🎉 Fun</button>
+<button>💼 Serious</button>
+<button>🤝 Friendship</button>
+<button>😊 Casual</button>
 
 </div>
 
 <div class="card">
 
-<img id="profileImg" src="">
+<img id="profileImg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop">
 
 <div class="info">
 
 <div>
 
-<span class="match">
-🤖 91% Match
-</span>
+<span class="match">🤖 91% Match</span>
 
-<span class="voice">
-🎙 Voice Intro
-</span>
+<span class="voice">🎙 Voice Intro</span>
 
 </div>
 
@@ -256,25 +229,18 @@ Loading...
 
 <div class="actions">
 
-<button id="dislike">
-❌
-</button>
+<button id="dislike">❌</button>
 
-<button id="fav">
-⭐
-</button>
+<button id="fav">⭐</button>
 
-<button class="like">
-❤️
-</button>
+<button id="like" class="like">❤️</button>
 
-<button class="super">
-⚡
-</button>
+<button id="super" class="super">⚡</button>
 
 </div>
 
 </div>
+
 </div>
 
 <script type="module">
@@ -324,9 +290,7 @@ querySnapshot.forEach((doc)=>{
 profiles.push(doc.data());
 
 });
-  
-console.log(profiles);
-  
+
 if(profiles.length > 0){
 
 showProfile();
@@ -334,7 +298,7 @@ showProfile();
 }else{
 
 document.getElementById("profileName").innerText =
-"No Profiles";
+"No Profiles Found";
 
 }
 
@@ -374,15 +338,13 @@ showProfile();
 
 }
 
-window.addEventListener("load",()=>{
-
 document.getElementById("dislike").onclick = ()=>{
 
 nextProfile();
 
 };
 
-document.querySelector(".like").onclick = ()=>{
+document.getElementById("like").onclick = ()=>{
 
 alert("🎉 Match Found!");
 
@@ -390,7 +352,7 @@ nextProfile();
 
 };
 
-document.querySelector(".super").onclick = ()=>{
+document.getElementById("super").onclick = ()=>{
 
 alert("⚡ Super Like!");
 
@@ -423,8 +385,6 @@ if(Math.abs(startX - endX) > 50){
 nextProfile();
 
 }
-
-});
 
 });
 
