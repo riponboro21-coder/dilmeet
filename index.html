@@ -393,6 +393,43 @@ nextProfile();
 
 loadProfiles();
 
+const topButtons =
+document.querySelectorAll(".tabs button");
+
+topButtons.forEach((btn)=>{
+
+btn.addEventListener("click",function(){
+
+topButtons.forEach((b)=>{
+
+b.classList.remove("active");
+
+});
+
+this.classList.add("active");
+
+});
+
+});
+
+const chipButtons =
+document.querySelectorAll(".chips button");
+
+chipButtons.forEach((btn)=>{
+
+btn.addEventListener("click",function(){
+
+chipButtons.forEach((b)=>{
+
+b.classList.remove("active");
+
+});
+
+this.classList.add("active");
+
+});
+
+});  
 </script>
 
 </body>
