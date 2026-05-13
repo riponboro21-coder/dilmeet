@@ -263,6 +263,11 @@ const db = firebase.firestore();
 let profiles = [];
 let current = 0;
 
+const profileImg = document.getElementById("profileImg");
+const profileName = document.getElementById("profileName");
+const profileCity = document.getElementById("profileCity");
+const profileBio = document.getElementById("profileBio");
+
 async function loadProfiles(){
 
 try{
@@ -278,14 +283,17 @@ profiles.push(doc.data());
 
 });
 
+console.log(profiles);
+
 if(profiles.length > 0){
 
 showProfile();
 
 }else{
 
-document.getElementById("profileName").innerText =
-"No Profiles Found";
+profileName.innerText = "No Profiles Found";
+profileCity.innerText = "";
+profileBio.innerText = "";
 
 }
 
@@ -293,7 +301,7 @@ document.getElementById("profileName").innerText =
 
 console.log(error);
 
-alert("Firebase Error");
+profileName.innerText = "Firebase Error";
 
 }
 
@@ -303,17 +311,12 @@ function showProfile(){
 
 if(profiles.length === 0) return;
 
-document.getElementById("profileName").innerText =
-profiles[current].name || "No Name";
+const p = profiles[current];
 
-document.getElementById("profileCity").innerText =
-profiles[current].city || "No City";
-
-document.getElementById("profileBio").innerText =
-profiles[current].bio || "No Bio";
-
-document.getElementById("profileImg").src =
-profiles[current].img || "";
+profileImg.src = p.img || "";
+profileName.innerText = p.name || "No Name";
+profileCity.innerText = p.city || "No City";
+profileBio.innerText = p.bio || "No Bio";
 
 }
 
@@ -333,33 +336,38 @@ showProfile();
 
 }
 
-document.getElementById("dislike")
-.addEventListener("click",nextProfile);
+const dislikeBtn = document.getElementById("dislike");
+const likeBtn = document.getElementById("like");
+const superBtn = document.getElementById("super");
+const favBtn = document.getElementById("fav");
 
-document.getElementById("like")
-.addEventListener("click",()=>{
-
-alert("🎉 Match Found!");
-
-nextProfile();
-
-});
-
-document.getElementById("super")
-.addEventListener("click",()=>{
-
-alert("⚡ Super Like!");
+dislikeBtn.onclick = function(){
 
 nextProfile();
 
-});
+};
 
-document.getElementById("fav")
-.addEventListener("click",()=>{
+likeBtn.onclick = function(){
+
+alert("❤️ Liked");
+
+nextProfile();
+
+};
+
+superBtn.onclick = function(){
+
+alert("⚡ Super Like");
+
+nextProfile();
+
+};
+
+favBtn.onclick = function(){
 
 alert("⭐ Saved");
 
-});
+};
 
 const card = document.getElementById("card");
 
